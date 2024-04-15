@@ -5,7 +5,7 @@ import pandas as pd
 
 class data_sofa(Sofa.Core.Controller):
     
-    def __init__(self, presion, id, *a, **kw):
+    def __init__(self, presion, quantity, id, *a, **kw):
 
         Sofa.Core.Controller.__init__(self, *a, **kw)
         self.node = kw["node"]          
@@ -28,7 +28,8 @@ class data_sofa(Sofa.Core.Controller):
         if self.index < len(self.pressureValues):
             pressure = self.pressureValues[self.index]
             self.pressure.pressure.value = pressure
-            self.index += 1            
+            self.index += 1
+            # print(pressure)            
             tipPosition_mm = 1000 * np.mean(self.node.tipROI.position.value, axis=0)
             new_row = pd.DataFrame({'Pressure': [pressure], 'x': [tipPosition_mm[0]], 'y': [tipPosition_mm[1]], 'z': [tipPosition_mm[2]]})
             self.data = pd.concat([self.data, new_row])

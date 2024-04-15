@@ -119,7 +119,7 @@ def createScene(root):
     cavity.addObject('MechanicalObject', name="StateVectors", template="Vec3", src="@cavity")
     cavity.addObject('SurfacePressureForceField',name='cavityPressure',pressure='1', pulseMode='false',drawForceScale='0.1',useTangentStiffness='false')
     cavity.addObject('BarycentricMapping')
-    data_simu = data_sofa(node = actuador, presion=15000, id=1)
+    data_simu = data_sofa(node = actuador, presion=30000, id=1, quantity=500)
     actuador.addObject(data_simu)
 
     #Definicion de la cavidad para el inflado
@@ -132,7 +132,7 @@ def createScene(root):
     cavity2.addObject('SurfacePressureForceField',name='cavityPressure',pressure='1', pulseMode='false',drawForceScale='0.1',useTangentStiffness='false')
     cavity2.addObject('BarycentricMapping')
 
-    data_simu2 = data_sofa(node = actuador2, presion=15000, id=2)
+    data_simu2 = data_sofa(node = actuador2, presion=10000, id=2, quantity=500)
     actuador2.addObject(data_simu2)
 
     return root
