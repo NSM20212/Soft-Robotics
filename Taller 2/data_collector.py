@@ -5,21 +5,24 @@ import pandas as pd
 
 class data_sofa(Sofa.Core.Controller):
     
-    def __init__(self, *a, **kw):
+    def __init__(self, presion, id, *a, **kw):
 
         Sofa.Core.Controller.__init__(self, *a, **kw)
         self.node = kw["node"]          
         self.pressure = self.node.cavity.cavityPressure        
         self.index = 0
+        self.id = id
         self.quantity = 500
-        lineal = np.linspace(0, 15000, self.quantity)
-        reverse = np.linspace(15000, 0, self.quantity)
+        self.max = presion
+        lineal = np.linspace(0, self.max, self.quantity)
+        reverse = np.linspace(self.max, 0, self.quantity)
         self.pressureValues = np.append(lineal, reverse, axis=0)
         self.headers = ['Pressure', 'x', 'y', 'z']
         self.data = pd.DataFrame(columns=self.headers)
 
     def publish(self):
-        self.data.to_csv('data.csv', index=False)
+        file_name = f"data_{self.id}.csv"
+        self.data.to_csv(file_name, index=False)
 
     def onAnimateEndEvent(self, edict):                        
         if self.index < len(self.pressureValues):
