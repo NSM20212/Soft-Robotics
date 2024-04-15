@@ -78,7 +78,7 @@ def createScene(root):
     cavity.addObject('TriangleSetTopologyContainer', name="surface_tris", src="@cavity")
     cavity.addObject('TriangleSetGeometryAlgorithms', template="Vec3", name="GeomAlgo")
     cavity.addObject('MechanicalObject', name="StateVectors", template="Vec3", src="@cavity")
-    cavity.addObject('SurfacePressureForceField',name='cavityPressure',pressure='0',pulseMode='false',drawForceScale='0.1',useTangentStiffness='false')
+    cavity.addObject('SurfacePressureForceField',name='cavityPressure',pressure='0',pressureSpeed="20000", pulseMode='false',drawForceScale='0.1',useTangentStiffness='false')
     cavity.addObject('BarycentricMapping')
 
     actuador.addObject(data_query(node = actuador))

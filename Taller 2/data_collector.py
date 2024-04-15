@@ -12,7 +12,7 @@ class data_query(Sofa.Core.Controller):
         self.node = kw["node"]          
         self.pressure = self.node.cavity.cavityPressure        
         self.index = 0
-        self.quantity = 800
+        self.quantity = 500
         lineal = np.linspace(0, 15000, self.quantity)
         reverse = np.linspace(15000, 0, self.quantity)
         self.pressureValues = np.append(lineal, reverse, axis=0)
