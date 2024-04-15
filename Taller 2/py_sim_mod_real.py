@@ -69,7 +69,6 @@ def createScene(root):
     actuador.addObject('MeshROI',name='tipROI',src='@tipMesh',drawMesh='1',drawTetrahedra='1',doUpdate='0',position='@StateVectors.position',tetrahedra='@../volume.tetrahedra',ROIposition='@tipMesh.position',ROItriangles='@tipMesh.triangles')
     
 
-
     actuador.addObject('FixedConstraint', name="fixed", indices='@fixedROI.indices')
     
     #Definicion de la cavidad para el inflado
@@ -78,7 +77,7 @@ def createScene(root):
     cavity.addObject('TriangleSetTopologyContainer', name="surface_tris", src="@cavity")
     cavity.addObject('TriangleSetGeometryAlgorithms', template="Vec3", name="GeomAlgo")
     cavity.addObject('MechanicalObject', name="StateVectors", template="Vec3", src="@cavity")
-    cavity.addObject('SurfacePressureForceField',name='cavityPressure',pressure='0',pressureSpeed="20000", pulseMode='false',drawForceScale='0.1',useTangentStiffness='false')
+    cavity.addObject('SurfacePressureForceField',name='cavityPressure',pressure='0', pulseMode='false',drawForceScale='0.1',useTangentStiffness='false')
     cavity.addObject('BarycentricMapping')
 
     actuador.addObject(data_query(node = actuador))
