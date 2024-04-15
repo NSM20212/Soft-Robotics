@@ -1,5 +1,5 @@
 import Sofa
-from data_collector import data_query
+from data_collector import data_sofa
 
 plugins =["Sofa.Component.AnimationLoop","Sofa.Component.IO.Mesh",
           "Sofa.Component.Visual","Sofa.Component.Constraint.Lagrangian.Solver","Sofa.Component.Mass",
@@ -79,7 +79,6 @@ def createScene(root):
     cavity.addObject('MechanicalObject', name="StateVectors", template="Vec3", src="@cavity")
     cavity.addObject('SurfacePressureForceField',name='cavityPressure',pressure='0', pulseMode='false',drawForceScale='0.1',useTangentStiffness='false')
     cavity.addObject('BarycentricMapping')
-
-    actuador.addObject(data_query(node = actuador))
-
+    data_simu = data_sofa(node = actuador)
+    actuador.addObject(data_simu)
     return root

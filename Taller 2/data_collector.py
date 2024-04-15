@@ -2,7 +2,8 @@ import Sofa.Core
 import numpy as np
 import pandas as pd 
 
-class data_query(Sofa.Core.Controller):
+
+class data_sofa(Sofa.Core.Controller):
     
     def __init__(self, *a, **kw):
 
@@ -18,6 +19,9 @@ class data_query(Sofa.Core.Controller):
         self.headers = ['Pressure', 'x', 'y', 'z']
         self.data = pd.DataFrame(columns=self.headers)
 
+    def publish(self):
+        self.data.to_csv('data.csv', index=False)
+
     def onAnimateEndEvent(self, edict):                        
         if self.index < len(self.pressureValues):
             pressure = self.pressureValues[self.index]
@@ -26,7 +30,7 @@ class data_query(Sofa.Core.Controller):
             tipPosition_mm = 1000 * np.mean(self.node.tipROI.position.value, axis=0)
             new_row = pd.DataFrame({'Pressure': [pressure], 'x': [tipPosition_mm[0]], 'y': [tipPosition_mm[1]], 'z': [tipPosition_mm[2]]})
             self.data = pd.concat([self.data, new_row])
-            print(self.data)
-            self.data.to_csv(self.csvFile, index=False)
+            self.publish()
+        
 
     
