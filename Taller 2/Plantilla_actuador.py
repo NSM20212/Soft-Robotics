@@ -15,7 +15,7 @@ plugins =["Sofa.Component.AnimationLoop","Sofa.Component.IO.Mesh",
 
 def createScene(root):
     #Caracteristicas de la escena
-    root.gravity = [0, 0, -9.81]
+    root.gravity = [0, 0, 0]
     root.dt = 0.01
     root.addObject("RequiredPlugin", pluginName=plugins)
     
@@ -41,9 +41,9 @@ def createScene(root):
     root.addObject('CollisionResponse')
     
     #Mallas (Unicamente objetos deformables)
-    #TODO Nombres de archivos y objetos en la simulación
+    #TO DO Nombres de archivos y objetos en la simulación
     root.addObject('MeshGmshLoader', name="Anillo_Torniquete",
-                   filename="Assets/NOMBRE_ARCHIVO.msh")
+                   filename="Assets/Anillofinal.msh")
     
     
     #Definicion del objeto anillo torniquete
@@ -52,7 +52,7 @@ def createScene(root):
                      rayleighMass="0.1")
     anillo.addObject('CGLinearSolver', iterations="100",
                      tolerance="1e-5", threshold="1e-5")
-    #TODO Nombre de la malla en las dos src siguientes
+    #TO DO Nombre de la malla en las dos src siguientes
     anillo.addObject('MechanicalObject', name="StateVectors",
                      template="Vec3", src="@../Anillo_Torniquete")
     anillo.addObject('TetrahedronSetTopologyContainer', name="volume_tetra",
@@ -70,6 +70,7 @@ def createScene(root):
     
     #Carga de la malla para la fijacion del objeto
     #TODO Nombre del STL a cargar del fijador.
+    '''
     anillo.addObject('MeshSTLLoader', name="fixedMesh",
                      filename="Assets/NOMBRE_MALLA.stl")
     anillo.addObject('MeshROI', name="fixedROI",
@@ -78,11 +79,12 @@ def createScene(root):
                      position="@StateVectors.position", tetrahedra="@../Anillo_Torniquete.tetrahedra",
                      ROIposition="@fixedMesh.position", ROItriangles="@fixedMesh.triangles")
     anillo.addObject('FixedConstraint', name="fixed", indices='@fixedROI.indices')
+    '''
     
     #Definicion de la cavidad para el inflado
     cavity = anillo.addChild('cavity')
-    #TODO Nombre del stl de la cavidad
-    cavity.addObject('MeshSTLLoader', name="cavity", filename="Assets/cavity.stl")
+    #TODO Nombre del stl de la cavidad y propiedades
+    cavity.addObject('MeshSTLLoader', name="cavity", filename="Assets/AnilloCavidad.stl")
     cavity.addObject('TriangleSetTopologyContainer', name="surface_tris", src="@cavity")
     cavity.addObject('TriangleSetGeometryAlgorithms', template="Vec3", name="GeomAlgo")
     cavity.addObject('MechanicalObject', name="StateVectors", template="Vec3", src="@cavity")
@@ -93,8 +95,8 @@ def createScene(root):
     
     #Superficie del actuador
     surf = anillo.addChild('surf')
-    #TODO Archivo .stl del exterior del actuador
-    surf.addObject('MeshSTLLoader', filename="Assets/outside.stl", name="loadersurf")
+    #TO DO Archivo .stl del exterior del actuador
+    surf.addObject('MeshSTLLoader', filename="Assets/AnilloContorno.stl", name="loadersurf")
     surf.addObject('MeshTopology', src="@loadersurf")
     surf.addObject('MechanicalObject', src="@loadersurf")
     surf.addObject('PointCollisionModel')
@@ -102,6 +104,7 @@ def createScene(root):
     surf.addObject('BarycentricMapping')
     
     #Objeto rigido para el actuador (cilindro)
+    '''
     cilindro = root.addObject('cilindro')
     #TODO agrgar stl del clindro
     cilindro.addObject('MeshSTLLoader', filename="Assets/cilindro.stl", name="loader")
@@ -110,4 +113,4 @@ def createScene(root):
     cilindro.addObject('PointCollisionModel', contactStiffness="1")
     cilindro.addObject('LineCollisionModel', contactStiffness="1")
     cilindro.addObject('TriangleCollisionModel', contactStiffness="1")
-    
+    '''
